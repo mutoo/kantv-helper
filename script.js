@@ -1,7 +1,7 @@
 (function() {
     // skip ad
     let ad = document.querySelector('#vjs-mandatory-advertisement');
-    let adVue = ad.__vue__;
+    let adVue = ad && ad.__vue__;
     if (!adVue) {
         return 'ad vue is not detected.';
     }
@@ -17,7 +17,7 @@
 (function() {
     // skip qrcode
     let qr = document.querySelector('#vjs-qr-code');
-    let qrVue = qr.__vue__;
+    let qrVue = qr && qr.__vue__;
     if (!qrVue) {
         return 'qr vue is not detected.';
     }
