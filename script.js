@@ -1,21 +1,5 @@
+// skip qrcode
 (function() {
-    // skip ad
-    let ad = document.querySelector('#vjs-mandatory-advertisement');
-    let adVue = ad && ad.__vue__;
-    if (!adVue) {
-        return 'ad vue is not detected.';
-    }
-    if (adVue.currentAdvertisingIndex !== -1) {
-        if (adVue.advertisingTimer)
-            clearInterval(adVue.advertisingTimer);
-        adVue.endOfAdvertisement();
-    } else {
-        console.log('No ad detected.');
-    }
-})();
-
-(function() {
-    // skip qrcode
     let qr = document.querySelector('#vjs-qr-code');
     let qrVue = qr && qr.__vue__;
     if (!qrVue) {
@@ -36,10 +20,30 @@
     qrVue.$el.style.display = 'none';
 })();
 
+// skip ad
 (function() {
-    // hide pause ad
+    let ad = document.querySelector('#vjs-mandatory-advertisement');
+    let adVue = ad && ad.__vue__;
+    if (!adVue) {
+        return 'ad vue is not detected.';
+    }
+    if (adVue.advertising) {
+        if (adVue.advertisingTimer)
+            clearInterval(adVue.advertisingTimer);
+        adVue.endOfAdvertisement();
+        adVue.empty();
+    } else {
+        console.log('No ad detected.');
+    }
+})();
+
+// hide page ad
+(function() {
     var styleEl = document.createElement('style');
     document.head.appendChild(styleEl);
     var styleSheet = styleEl.sheet;
     styleSheet.insertRule('#vjs-pause-advertising{display:none!important;}');
+    styleSheet.insertRule('.adcontainer{display:none!important;}');
+    styleSheet.insertRule('.mtg-client_left{display:none!important;}');
+    styleSheet.insertRule('.mtg-client_right{display:none!important;}');
 })();
