@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.1
+// @version      1.0.2
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -95,21 +95,16 @@ function adMandatory() {
     // allow close mandatory ad
     vue.advertising.closeMandatory = true;
 
-    // remove all mandatory ad
+    // force finish the first ad
+    vue.$set(vue, 'currentAdvertisingTime', parseInt('Inf'));
+
+    // remove all mandatory ads
     let adIndexes = Object.keys(vue.advertising.mandatory);
     for (let i = 0; i < adIndexes.length; i++) {
         let mandatory = vue.advertising.mandatory[adIndexes[i]];
         if (mandatory) {
             mandatory.length = 0;
         }
-    }
-
-    // check if advertising is playing
-    if (vue.advertisingTimer) {
-        vue.endOfAdvertisement();
-        clearInterval(vue.advertisingTimer);
-    } else {
-        console.log('ad is not playing.');
     }
 }
 

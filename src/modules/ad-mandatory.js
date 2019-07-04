@@ -14,20 +14,15 @@ export default function adMandatory() {
     // allow close mandatory ad
     vue.advertising.closeMandatory = true;
 
-    // remove all mandatory ad
+    // force finish the first ad
+    vue.$set(vue, 'currentAdvertisingTime', parseInt('Inf'));
+
+    // remove all mandatory ads
     let adIndexes = Object.keys(vue.advertising.mandatory);
     for (let i = 0; i < adIndexes.length; i++) {
         let mandatory = vue.advertising.mandatory[adIndexes[i]];
         if (mandatory) {
             mandatory.length = 0;
         }
-    }
-
-    // check if advertising is playing
-    if (vue.advertisingTimer) {
-        vue.endOfAdvertisement();
-        clearInterval(vue.advertisingTimer);
-    } else {
-        console.log('ad is not playing.');
     }
 };
