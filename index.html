@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>kantv Helper</title>
+    <title>Kantv Helper</title>
     <style>
         * {
             box-sizing: border-box;
@@ -31,10 +31,13 @@
 <body>
 <div class="kt-container">
     <h1>Kantv Helper</h1>
-    <p>This is the install page for Kantv Helper. After installing, you could simply inject the helper script via the
-        bookmark to active it every time you need it.</p>
-    <p>This allow you to use this script on the browsers that doesn't support extensions, such as Edge on xbox.</p>
+    <p>Customized scripts for kantv, skipping qrCode, removing ads, etc.</p>
     <h2>Install</h2>
+    <h3>Userscripts</h3>
+    <p>If you have the greasemoney or tampermonkey extension for your browser,
+        <a href="dist/kantv-helper.user.js" target="_blank">click here to install</a> the scripts.</p>
+    <h3>Bookmark</h3>
+    <p>You could also use the script from your bookmark by:</p>
     <p>
         Drag the following link to your bookmarks:
         <a id="link" href='' title="Kantv Helper">Kantv-helper</a>
@@ -43,20 +46,26 @@
         Or copy following code then create a new bookmark:
         <textarea id="text"></textarea>
     </p>
-    <p>
-        I known it's hard to do so on Xbox. My solution is that using Xbox mobile app as text input to copy and paste the script into a bookmark.
+    <p>Once installed, you could simply inject the helper script via the bookmark to active it every time you need
+        it.</p>
+    <p>This allow you to use this script on the browsers that doesn't support extensions, such as Edge on xbox.</p>
+    <p>I known it's hard to do so on Xbox. My solution is that using Xbox mobile app as text input to copy and paste
+        the script into a bookmark.
     </p>
     <h2>Change Logs</h2>
-    <ul>
-        <li>
-            Jul 4, 2019 - remove op-ads and pause-ads;
-        </li>
-    </ul>
+    <dl>
+        <dt>1.0.0 - Jul 4, 2019</dt>
+        <dd>skipping qrCode, removing ads!</dd>
+    </dl>
+    <h2>FAQ</h2>
+    <dl>
+        <dt>Does it support IE11?</dt>
+        <dd>The scripts? Yes. This page? You guess it.</dd>
+    </dl>
 </div>
-<script src="url-polyfill.js" async></script>
 <script>
     window.addEventListener('load', function() {
-        var target = new URL('script.js', window.location.href); // ie11 is not supported, polyfill needed
+        var target = new URL('dist/kantv-helper.user.js', window.location.href);
         var script = 'javascript:(function(){var s=document.createElement("script");s.src="' + target +
             '";document.getElementsByTagName("head")[0].appendChild(s)})();';
         var link = document.getElementById('link');
