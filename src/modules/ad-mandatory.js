@@ -17,7 +17,10 @@ export default function adMandatory() {
     // remove all mandatory ad
     let adIndexes = Object.keys(vue.advertising.mandatory);
     for (let i = 0; i < adIndexes.length; i++) {
-        vue.advertising.mandatory[adIndexes[i]].length = 0;
+        let mandatory = vue.advertising.mandatory[adIndexes[i]];
+        if (mandatory) {
+            mandatory.length = 0;
+        }
     }
 
     // check if advertising is playing

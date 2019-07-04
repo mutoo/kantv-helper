@@ -7,10 +7,18 @@ export default function adMandatory() {
         return;
     }
 
+    if (!vue.advertising) {
+        console.log('no ad on this video.');
+        return;
+    }
+
     // force hide pause ad
     vue.display = false;
 
     // remove pause ads
-    vue.advertising.pause.length = 0;
-    vue.formatAdvertising.length = 0;
+    if (vue.advertising.pause)
+        vue.advertising.pause.length = 0;
+
+    if (vue.formatAdvertising)
+        vue.formatAdvertising.length = 0;
 };
