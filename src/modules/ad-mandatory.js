@@ -15,7 +15,7 @@ export default function adMandatory() {
     vue.advertising.closeMandatory = true;
 
     // force finish the first ad
-    vue.$set(vue, 'currentAdvertisingTime', parseInt('Inf'));
+    vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
 
     // remove all mandatory ads
     let adIndexes = Object.keys(vue.advertising.mandatory);

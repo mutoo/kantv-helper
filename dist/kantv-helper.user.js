@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.2
+// @version      1.0.3
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -96,7 +96,7 @@ function adMandatory() {
     vue.advertising.closeMandatory = true;
 
     // force finish the first ad
-    vue.$set(vue, 'currentAdvertisingTime', parseInt('Inf'));
+    vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
 
     // remove all mandatory ads
     let adIndexes = Object.keys(vue.advertising.mandatory);
@@ -169,6 +169,13 @@ function qrCode$1(vjs) {
                 break;
             case '=':
                 vjs.playbackRate(Math.min(rate + 0.25, 10));
+                break;
+            case 'f':
+                if (vjs.isFullscreen()) {
+                    vjs.exitFullscreen();
+                } else {
+                    vjs.requestFullscreen();
+                }
                 break;
             case 'ArrowLeft':
                 vjs.currentTime(Math.max(0, currentTime - skip));

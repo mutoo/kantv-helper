@@ -24,6 +24,13 @@ export default function qrCode(vjs) {
             case '=':
                 vjs.playbackRate(Math.min(rate + 0.25, 10));
                 break;
+            case 'f':
+                if (vjs.isFullscreen()) {
+                    vjs.exitFullscreen();
+                } else {
+                    vjs.requestFullscreen();
+                }
+                break;
             case 'ArrowLeft':
                 vjs.currentTime(Math.max(0, currentTime - skip));
                 break;
