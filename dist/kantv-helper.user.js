@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.4
+// @version      1.0.5
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -144,7 +144,7 @@ function styles() {
     });
 }
 
-function qrCode$1(vjs) {
+function keyControls(vjs) {
     if (!vjs) {
         console.warn('could not detect vjs');
         return;
@@ -176,6 +176,12 @@ function qrCode$1(vjs) {
                     vjs.requestFullscreen();
                 }
                 break;
+            case 'n':
+                let vue = getVueInstance('#vjs-next-part');
+                if (vue) {
+                    vue.$emit('on-click'); // trigger next
+                }
+                break;
             case ',':
                 vjs.currentTime(Math.max(0, currentTime - skip));
                 break;
@@ -203,6 +209,6 @@ function qrCode$1(vjs) {
 
 (() => {
     detectElement('.video-js').then((vjs) => {
-        qrCode$1(vjs.player);
+        keyControls(vjs.player);
     });
 })();

@@ -1,4 +1,6 @@
-export default function qrCode(vjs) {
+import {getVueInstance} from '../utils';
+
+export default function keyControls(vjs) {
     if (!vjs) {
         console.warn('could not detect vjs');
         return;
@@ -28,6 +30,12 @@ export default function qrCode(vjs) {
                     vjs.exitFullscreen();
                 } else {
                     vjs.requestFullscreen();
+                }
+                break;
+            case 'n':
+                let vue = getVueInstance('#vjs-next-part');
+                if (vue) {
+                    vue.$emit('on-click'); // trigger next
                 }
                 break;
             case ',':
