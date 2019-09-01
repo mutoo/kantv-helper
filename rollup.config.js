@@ -16,6 +16,12 @@ const banner = `// ==UserScript==
 // @match        http*://www.imkan.tv/anime/*
 // @match        http*://www.imkan.tv/child/*
 // @match        http*://www.imkan.tv/documentary/*
+// @match        http*://www.wekan.tv/tvdrama/*
+// @match        http*://www.wekan.tv/movie/*
+// @match        http*://www.wekan.tv/show/*
+// @match        http*://www.wekan.tv/anime/*
+// @match        http*://www.wekan.tv/child/*
+// @match        http*://www.wekan.tv/documentary/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
