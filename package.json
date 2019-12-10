@@ -1,6 +1,6 @@
 {
   "name": "kantv-helper",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Customized scripts for kantv, skipping qrCode, removing ads, etc.",
   "repository": "https://github.com/mutoo/kantv-helper.git",
   "author": "Mutoo <gmutoo@gmail.com>",
@@ -11,5 +11,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c"
+  },
+  "devDependencies": {
+    "rollup": "^1.27.9"
   }
 }

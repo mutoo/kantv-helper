@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.6
+// @version      1.0.7
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -145,6 +145,7 @@ function styles() {
         '.adcontainer',
         '.mtg-client_left',
         '.mtg-client_right',
+        '.a-card-item',
     ].forEach(selector => {
         styleSheet.insertRule(`${selector}{display:none!important;}`);
     });
@@ -157,6 +158,10 @@ function keyControls(vjs) {
     }
 
     window.addEventListener('keyup', (e) => {
+        if (e.target instanceof HTMLInputElement) {
+            // ignore the key events in the input element
+            return;
+        }
         let rate = vjs.playbackRate();
         let currentTime = vjs.currentTime();
         let duration = vjs.duration();
