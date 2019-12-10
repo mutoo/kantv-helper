@@ -1,4 +1,4 @@
-import {getVueInstance} from '../utils';
+import { getVueInstance } from '../utils';
 
 export default function keyControls(vjs) {
     if (!vjs) {
@@ -7,6 +7,10 @@ export default function keyControls(vjs) {
     }
 
     window.addEventListener('keyup', (e) => {
+        if (e.target instanceof HTMLInputElement) {
+            // ignore the key events in the input element
+            return;
+        }
         let rate = vjs.playbackRate();
         let currentTime = vjs.currentTime();
         let duration = vjs.duration();
