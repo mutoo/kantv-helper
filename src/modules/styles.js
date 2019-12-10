@@ -6,6 +6,7 @@ export default function() {
         '.adcontainer',
         '.mtg-client_left',
         '.mtg-client_right',
+        '.a-card-item',
     ].forEach(selector => {
         styleSheet.insertRule(`${selector}{display:none!important;}`);
     });
