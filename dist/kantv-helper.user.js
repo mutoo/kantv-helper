@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.7
+// @version      1.0.8
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -157,7 +157,7 @@ function keyControls(vjs) {
         return;
     }
 
-    window.addEventListener('keyup', (e) => {
+    window.addEventListener('keyup', e => {
         if (e.target instanceof HTMLInputElement) {
             // ignore the key events in the input element
             return;
@@ -185,6 +185,20 @@ function keyControls(vjs) {
                     vjs.exitFullscreen();
                 } else {
                     vjs.requestFullscreen();
+                }
+                break;
+            case 'p':
+                if ('pictureInPictureEnabled' in document) {
+                    let video = vjs.$('video');
+                    if (document.pictureInPictureElement) {
+                        document.exitPictureInPicture();
+                    } else {
+                        video.requestPictureInPicture();
+                    }
+                } else {
+                    console.warn(
+                        'Picture-in-picture is not supported in this browser.',
+                    );
                 }
                 break;
             case 'n':

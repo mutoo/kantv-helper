@@ -6,7 +6,7 @@ export default function keyControls(vjs) {
         return;
     }
 
-    window.addEventListener('keyup', (e) => {
+    window.addEventListener('keyup', e => {
         if (e.target instanceof HTMLInputElement) {
             // ignore the key events in the input element
             return;
@@ -34,6 +34,20 @@ export default function keyControls(vjs) {
                     vjs.exitFullscreen();
                 } else {
                     vjs.requestFullscreen();
+                }
+                break;
+            case 'p':
+                if ('pictureInPictureEnabled' in document) {
+                    let video = vjs.$('video');
+                    if (document.pictureInPictureElement) {
+                        document.exitPictureInPicture();
+                    } else {
+                        video.requestPictureInPicture();
+                    }
+                } else {
+                    console.warn(
+                        'Picture-in-picture is not supported in this browser.',
+                    );
                 }
                 break;
             case 'n':
