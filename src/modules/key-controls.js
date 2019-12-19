@@ -33,6 +33,9 @@ export default function keyControls(vjs) {
                 if (vjs.isFullscreen()) {
                     vjs.exitFullscreen();
                 } else {
+                    if (document.pictureInPictureElement) {
+                        document.exitPictureInPicture();
+                    }
                     vjs.requestFullscreen();
                 }
                 break;
@@ -42,6 +45,9 @@ export default function keyControls(vjs) {
                     if (document.pictureInPictureElement) {
                         document.exitPictureInPicture();
                     } else {
+                        if (vjs.isFullscreen()) {
+                            vjs.exitFullscreen();
+                        }
                         video.requestPictureInPicture();
                     }
                 } else {
