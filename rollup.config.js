@@ -22,6 +22,12 @@ const banner = `// ==UserScript==
 // @match        http*://www.wekan.tv/anime/*
 // @match        http*://www.wekan.tv/child/*
 // @match        http*://www.wekan.tv/documentary/*
+// @match        http*://www.kantv6.com/tvdrama/*
+// @match        http*://www.kantv6.com/movie/*
+// @match        http*://www.kantv6.com/show/*
+// @match        http*://www.kantv6.com/anime/*
+// @match        http*://www.kantv6.com/child/*
+// @match        http*://www.kantv6.com/documentary/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
