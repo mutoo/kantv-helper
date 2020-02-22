@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.10
+// @version      1.0.11
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -38,8 +38,7 @@
  * @return {any | null}
  */
 function getVueInstance(selector) {
-    let dom = document.querySelector(selector);
-    return dom && dom.__vue__;
+    return detectElement(selector).then(dom => dom.__vue__);
 }
 
 /**
@@ -59,88 +58,88 @@ function detectElement(selector, interval = 500, retry = 10) {
                 setTimeout(detect, interval);
                 retry -= 1;
             } else {
-                reject('can not found element on the page');
+                reject(`can not found ${selector} on the page`);
             }
         }, interval);
     });
 }
 
 function qrCode() {
-    let vue = getVueInstance('#vjs-qr-code');
-    if (!vue) {
-        console.warn('qr vue is not detected.');
-        return;
-    }
+  return getVueInstance('#vjs-qr-code')
+    .then(vue => {
+      /* request success */
+      vue.followedSuccess = true;
+      vue.shareSuccess = true;
+      vue.ajaxOnOff = true;
+      vue.type = null;
+      // the following line will be done by changing `type`
+      // vue.$emit('update:displayState', false);
+      vue.$emit('update:coverAndProhibitPlay', false);
+      vue.initState.end ||
+        vue.$emit('update:initState', {
+          start: true,
+          end: true,
+          skipOtherOptions: true,
+        });
 
-    /* request success */
-    vue.followedSuccess = true;
-    vue.shareSuccess = true;
-    vue.ajaxOnOff = true;
-    vue.type = null;
-    // the following line will be done by changing `type`
-    // vue.$emit('update:displayState', false);
-    vue.$emit('update:coverAndProhibitPlay', false);
-    vue.initState.end || vue.$emit('update:initState', {
-        start: true,
-        end: true,
-        skipOtherOptions: true,
+      /* before destroy */
+      clearTimeout(vue.requestCodeTimer);
+      clearTimeout(vue.requestSubscribeTimer);
+      clearTimeout(vue.expirationTimer);
+      clearTimeout(vue.teseTimer);
+    })
+    .catch(err => {
+      console.warn('qr vue is not detected.');
     });
-
-    /* before destroy */
-    clearTimeout(vue.requestCodeTimer);
-    clearTimeout(vue.requestSubscribeTimer);
-    clearTimeout(vue.expirationTimer);
-    clearTimeout(vue.teseTimer);
 }
 
 function adMandatory() {
-    let vue = getVueInstance('#vjs-mandatory-advertisement');
-    if (!vue) {
-        console.warn('mandatory ad vue is not detected.');
-        return;
-    }
-    if (!vue.advertising) {
+  return getVueInstance('#vjs-mandatory-advertisement')
+    .then(vue => {
+      if (!vue.advertising) {
         console.log('no ad on this video.');
         return;
-    }
+      }
 
-    // allow close mandatory ad
-    vue.advertising.closeMandatory = true;
+      // allow close mandatory ad
+      vue.advertising.closeMandatory = true;
 
-    // force finish the first ad
-    vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
+      // force finish the first ad
+      vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
 
-    // remove all mandatory ads
-    let adIndexes = Object.keys(vue.advertising.mandatory);
-    for (let i = 0; i < adIndexes.length; i++) {
+      // remove all mandatory ads
+      let adIndexes = Object.keys(vue.advertising.mandatory);
+      for (let i = 0; i < adIndexes.length; i++) {
         let mandatory = vue.advertising.mandatory[adIndexes[i]];
         if (mandatory) {
-            mandatory.length = 0;
+          mandatory.length = 0;
         }
-    }
+      }
+    })
+    .catch(err => {
+      console.warn('mandatory ad vue is not detected.');
+    });
 }
 
 function adMandatory$1() {
-    let vue = getVueInstance('#vjs-pause-advertising');
-    if (!vue) {
-        console.warn('pause-ad vue is not detected.');
-        return;
-    }
-
-    if (!vue.advertising) {
+  return getVueInstance('.vjs-pause-advertising')
+    .then(vue => {
+      if (!vue.advertising) {
         console.log('no ad on this video.');
         return;
-    }
+      }
 
-    // force hide pause ad
-    vue.display = false;
+      // force hide pause ad
+      vue.display = false;
 
-    // remove pause ads
-    if (vue.advertising.pause)
-        vue.advertising.pause.length = 0;
+      // remove pause ads
+      if (vue.advertising.pause) vue.advertising.pause.length = 0;
 
-    if (vue.formatAdvertising)
-        vue.formatAdvertising.length = 0;
+      if (vue.formatAdvertising) vue.formatAdvertising.length = 0;
+    })
+    .catch(err => {
+      console.warn('pause-ad vue is not detected.');
+    });
 }
 
 function styles() {
@@ -236,16 +235,18 @@ function keyControls(vjs) {
 }
 
 (() => {
-    detectElement('#vjs-component-box').then((_) => {
-        adMandatory$1();
-        adMandatory();
-        qrCode();
-        styles();
-    });
+  adMandatory$1();
+  adMandatory();
+  qrCode();
+  styles();
 })();
 
 (() => {
-    detectElement('.video-js').then((vjs) => {
-        keyControls(vjs.player);
+  detectElement('.video-js')
+    .then(vjs => {
+      keyControls(vjs.player);
+    })
+    .catch(err => {
+      console.warn(err);
     });
 })();

@@ -4,8 +4,7 @@
  * @return {any | null}
  */
 export function getVueInstance(selector) {
-    let dom = document.querySelector(selector);
-    return dom && dom.__vue__;
+    return detectElement(selector).then(dom => dom.__vue__);
 }
 
 /**
@@ -25,7 +24,7 @@ export function detectElement(selector, interval = 500, retry = 10) {
                 setTimeout(detect, interval);
                 retry -= 1;
             } else {
-                reject('can not found element on the page');
+                reject(`can not found ${selector} on the page`);
             }
         }, interval);
     });
