@@ -55,10 +55,9 @@ export default function keyControls(vjs) {
         }
         break;
       case 'n':
-        let vue = getVueInstance('#vjs-next-part');
-        if (vue) {
+        getVueInstance('#vjs-next-part').then(vue => {
           vue.$emit('on-click'); // trigger next
-        }
+        });
         break;
       case ',':
         vjs.currentTime(Math.max(0, currentTime - skip));
