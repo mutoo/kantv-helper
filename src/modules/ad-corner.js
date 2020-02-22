@@ -1,18 +1,18 @@
 import { getVueInstance } from '../utils';
 
-export default function adPause() {
-  return getVueInstance('.vjs-pause-advertising')
+export default function adCorner() {
+  return getVueInstance('.vjs-corner-advertisement')
     .then(vue => {
       if (!vue.advertising) {
         console.log('no ad on this video.');
         return;
       }
 
-      // force hide pause ad
+      // force hide corner ad
       vue.display = false;
 
-      // remove pause ads
-      if (vue.advertising.pause) vue.advertising.pause.length = 0;
+      // remove corner ads
+      if (vue.advertising.corner) vue.advertising.corner.length = 0;
 
       if (vue.formatAdvertising) vue.formatAdvertising.length = 0;
     })

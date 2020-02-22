@@ -38,7 +38,7 @@
  * @return {any | null}
  */
 function getVueInstance(selector) {
-    return detectElement(selector).then(dom => dom.__vue__);
+  return detectElement(selector).then(dom => dom.__vue__);
 }
 
 /**
@@ -49,19 +49,19 @@ function getVueInstance(selector) {
  * @return {Promise<any>}
  */
 function detectElement(selector, interval = 500, retry = 10) {
-    return new Promise((resolve, reject) => {
-        setTimeout(function detect() {
-            let dom = document.querySelector(selector);
-            if (dom) {
-                resolve(dom);
-            } else if (retry > 0) {
-                setTimeout(detect, interval);
-                retry -= 1;
-            } else {
-                reject(`can not found ${selector} on the page`);
-            }
-        }, interval);
-    });
+  return new Promise((resolve, reject) => {
+    setTimeout(function detect() {
+      let dom = document.querySelector(selector);
+      if (dom) {
+        resolve(dom);
+      } else if (retry > 0) {
+        setTimeout(detect, interval);
+        retry -= 1;
+      } else {
+        reject(`can not found ${selector} on the page`);
+      }
+    }, interval);
+  });
 }
 
 function qrCode() {
@@ -121,7 +121,7 @@ function adMandatory() {
     });
 }
 
-function adMandatory$1() {
+function adPause() {
   return getVueInstance('.vjs-pause-advertising')
     .then(vue => {
       if (!vue.advertising) {
@@ -134,6 +134,27 @@ function adMandatory$1() {
 
       // remove pause ads
       if (vue.advertising.pause) vue.advertising.pause.length = 0;
+
+      if (vue.formatAdvertising) vue.formatAdvertising.length = 0;
+    })
+    .catch(err => {
+      console.warn('pause-ad vue is not detected.');
+    });
+}
+
+function adCorner() {
+  return getVueInstance('.vjs-corner-advertisement')
+    .then(vue => {
+      if (!vue.advertising) {
+        console.log('no ad on this video.');
+        return;
+      }
+
+      // force hide corner ad
+      vue.display = false;
+
+      // remove corner ads
+      if (vue.advertising.corner) vue.advertising.corner.length = 0;
 
       if (vue.formatAdvertising) vue.formatAdvertising.length = 0;
     })
@@ -157,85 +178,84 @@ function styles() {
 }
 
 function keyControls(vjs) {
-    if (!vjs) {
-        console.warn('could not detect vjs');
-        return;
-    }
+  if (!vjs) {
+    console.warn('could not detect vjs');
+    return;
+  }
 
-    window.addEventListener('keyup', e => {
-        if (e.target instanceof HTMLInputElement) {
-            // ignore the key events in the input element
-            return;
+  window.addEventListener('keyup', e => {
+    if (e.target instanceof HTMLInputElement) {
+      // ignore the key events in the input element
+      return;
+    }
+    let rate = vjs.playbackRate();
+    let currentTime = vjs.currentTime();
+    let duration = vjs.duration();
+    let skip = 10;
+    switch (e.key) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+        vjs.playbackRate(parseInt(e.key));
+        break;
+      case '-':
+        vjs.playbackRate(Math.max(0, rate - 0.25));
+        break;
+      case '=':
+        vjs.playbackRate(Math.min(rate + 0.25, 10));
+        break;
+      case 'f':
+        if (vjs.isFullscreen()) {
+          vjs.exitFullscreen();
+        } else {
+          if (document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+          }
+          vjs.requestFullscreen();
         }
-        let rate = vjs.playbackRate();
-        let currentTime = vjs.currentTime();
-        let duration = vjs.duration();
-        let skip = 10;
-        switch (e.key) {
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-                vjs.playbackRate(parseInt(e.key));
-                break;
-            case '-':
-                vjs.playbackRate(Math.max(0, rate - 0.25));
-                break;
-            case '=':
-                vjs.playbackRate(Math.min(rate + 0.25, 10));
-                break;
-            case 'f':
-                if (vjs.isFullscreen()) {
-                    vjs.exitFullscreen();
-                } else {
-                    if (document.pictureInPictureElement) {
-                        document.exitPictureInPicture();
-                    }
-                    vjs.requestFullscreen();
-                }
-                break;
-            case 'p':
-                if ('pictureInPictureEnabled' in document) {
-                    let video = vjs.$('video');
-                    if (document.pictureInPictureElement) {
-                        document.exitPictureInPicture();
-                    } else {
-                        if (vjs.isFullscreen()) {
-                            vjs.exitFullscreen();
-                        }
-                        video.requestPictureInPicture();
-                    }
-                } else {
-                    console.warn(
-                        'Picture-in-picture is not supported in this browser.',
-                    );
-                }
-                break;
-            case 'n':
-                let vue = getVueInstance('#vjs-next-part');
-                if (vue) {
-                    vue.$emit('on-click'); // trigger next
-                }
-                break;
-            case ',':
-                vjs.currentTime(Math.max(0, currentTime - skip));
-                break;
-            case '.':
-                vjs.currentTime(Math.min(currentTime + skip, duration));
-                break;
-            case '<':
-                vjs.currentTime(Math.max(0, currentTime - skip * 2));
-                break;
-            case '>':
-                vjs.currentTime(Math.min(currentTime + skip * 2, duration));
-                break;
+        break;
+      case 'p':
+        if ('pictureInPictureEnabled' in document) {
+          let video = vjs.$('video');
+          if (document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+          } else {
+            if (vjs.isFullscreen()) {
+              vjs.exitFullscreen();
+            }
+            video.requestPictureInPicture();
+          }
+        } else {
+          console.warn('Picture-in-picture is not supported in this browser.');
         }
-    });
+        break;
+      case 'n':
+        let vue = getVueInstance('#vjs-next-part');
+        if (vue) {
+          vue.$emit('on-click'); // trigger next
+        }
+        break;
+      case ',':
+        vjs.currentTime(Math.max(0, currentTime - skip));
+        break;
+      case '.':
+        vjs.currentTime(Math.min(currentTime + skip, duration));
+        break;
+      case '<':
+        vjs.currentTime(Math.max(0, currentTime - skip * 2));
+        break;
+      case '>':
+        vjs.currentTime(Math.min(currentTime + skip * 2, duration));
+        break;
+    }
+  });
 }
 
 (() => {
-  adMandatory$1();
+  adCorner();
+  adPause();
   adMandatory();
   qrCode();
   styles();
