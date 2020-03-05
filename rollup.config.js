@@ -28,6 +28,8 @@ const banner = `// ==UserScript==
 // @match        http*://www.kantv6.com/anime/*
 // @match        http*://www.kantv6.com/child/*
 // @match        http*://www.kantv6.com/documentary/*
+// @match        http*://www.huaren.tv/live/*
+// @match        http*://www.huaren.tv/sports/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
