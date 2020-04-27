@@ -1,5 +1,6 @@
 import { detectElement } from './utils';
 import qrcode from './modules/qrcode';
+import today from './modules/today';
 import adMandatory from './modules/ad-mandatory';
 import adPause from './modules/ad-pause';
 import adCorner from './modules/ad-corner';
@@ -11,6 +12,7 @@ import keyControls from './modules/key-controls';
   adPause();
   adMandatory();
   qrcode();
+  today();
   styles();
 })();
 

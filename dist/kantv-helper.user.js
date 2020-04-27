@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.12
+// @version      1.0.14
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -26,6 +26,8 @@
 // @match        http*://www.kantv6.com/anime/*
 // @match        http*://www.kantv6.com/child/*
 // @match        http*://www.kantv6.com/documentary/*
+// @match        http*://www.huaren.tv/live/*
+// @match        http*://www.huaren.tv/sports/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
@@ -91,6 +93,31 @@ function qrCode() {
     .catch(err => {
       console.warn('qr vue is not detected.');
     });
+}
+
+function today() {
+    return getVueInstance('.vjs-jinriaozhou')
+        .then(vue => {
+            /* request success */
+            vue.followedSuccess = true;
+            vue.visible = false;
+            // the following line will be done by changing `type`
+            // vue.$emit('update:displayState', false);
+            vue.$emit('update:coverAndProhibitPlay', false);
+            vue.initState.end ||
+            vue.$emit('update:initState', {
+                start: true,
+                end: true,
+                skipOtherOptions: true,
+            });
+
+            /* before destroy */
+            clearTimeout(vue.requestSubscribeTimer);
+            clearTimeout(vue.teseTimer);
+        })
+        .catch(err => {
+            console.warn('qr vue is not detected.');
+        });
 }
 
 function adMandatory() {
@@ -257,6 +284,7 @@ function keyControls(vjs) {
   adPause();
   adMandatory();
   qrCode();
+  today();
   styles();
 })();
 

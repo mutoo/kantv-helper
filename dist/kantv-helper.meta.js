@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.12
+// @version      1.0.14
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -26,6 +26,8 @@
 // @match        http*://www.kantv6.com/anime/*
 // @match        http*://www.kantv6.com/child/*
 // @match        http*://www.kantv6.com/documentary/*
+// @match        http*://www.huaren.tv/live/*
+// @match        http*://www.huaren.tv/sports/*
 // @run-at       document-end
 // @grant        none
 // ==/UserScript==
