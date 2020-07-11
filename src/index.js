@@ -1,19 +1,9 @@
 import { detectElement } from './utils';
-import qrcode from './modules/qrcode';
-import today from './modules/today';
-import adMandatory from './modules/ad-mandatory';
-import adPause from './modules/ad-pause';
-import adCorner from './modules/ad-corner';
-import styles from './modules/styles';
+import removeAd from './modules/remove-ad'
 import keyControls from './modules/key-controls';
 
 (() => {
-  adCorner();
-  adPause();
-  adMandatory();
-  qrcode();
-  today();
-  styles();
+  removeAd();
 })();
 
 (() => {
@@ -25,3 +15,9 @@ import keyControls from './modules/key-controls';
       console.warn(err);
     });
 })();
+
+window.onload = async (event) => {
+  // Fire skip adMandatory again upon change in episode name
+  let episode = document.getElementById("cPartNum");
+  episode.addEventListener("DOMSubtreeModified", () => { removeAd(); });
+};

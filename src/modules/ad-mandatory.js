@@ -3,6 +3,11 @@ import { getVueInstance } from '../utils';
 export default function adMandatory() {
   return getVueInstance('#vjs-mandatory-advertisement')
     .then(vue => {
+      // Ensure that the audio for the ad is muted
+      detectElement(".vjs-mandatory-advertisement__video").then(element => {
+        element.muted = true;
+      })
+
       if (!vue.advertising) {
         console.log('no ad on this video.');
         return;
@@ -11,17 +16,10 @@ export default function adMandatory() {
       // allow close mandatory ad
       vue.advertising.closeMandatory = true;
 
-      // force finish the first ad
-      vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
-
-      // remove all mandatory ads
-      let adIndexes = Object.keys(vue.advertising.mandatory);
-      for (let i = 0; i < adIndexes.length; i++) {
-        let mandatory = vue.advertising.mandatory[adIndexes[i]];
-        if (mandatory) {
-          mandatory.length = 0;
-        }
-      }
+      detectElement('#vjs-mandatory-advertisement__close').then((element) => {
+        element.click();
+      })
+      console.log("Ad removed");
     })
     .catch(err => {
       console.warn('mandatory ad vue is not detected.');
