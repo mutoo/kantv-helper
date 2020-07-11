@@ -96,28 +96,28 @@ function qrCode() {
 }
 
 function today() {
-  return getVueInstance('.vjs-jinriaozhou')
-    .then(vue => {
-      /* request success */
-      vue.followedSuccess = true;
-      vue.visible = false;
-      // the following line will be done by changing `type`
-      // vue.$emit('update:displayState', false);
-      vue.$emit('update:coverAndProhibitPlay', false);
-      vue.initState.end ||
-        vue.$emit('update:initState', {
-          start: true,
-          end: true,
-          skipOtherOptions: true,
-        });
+    return getVueInstance('.vjs-jinriaozhou')
+        .then(vue => {
+            /* request success */
+            vue.followedSuccess = true;
+            vue.visible = false;
+            // the following line will be done by changing `type`
+            // vue.$emit('update:displayState', false);
+            vue.$emit('update:coverAndProhibitPlay', false);
+            vue.initState.end ||
+            vue.$emit('update:initState', {
+                start: true,
+                end: true,
+                skipOtherOptions: true,
+            });
 
-      /* before destroy */
-      clearTimeout(vue.requestSubscribeTimer);
-      clearTimeout(vue.teseTimer);
-    })
-    .catch(err => {
-      console.warn('qr vue is not detected.');
-    });
+            /* before destroy */
+            clearTimeout(vue.requestSubscribeTimer);
+            clearTimeout(vue.teseTimer);
+        })
+        .catch(err => {
+            console.warn('qr vue is not detected.');
+        });
 }
 
 function adMandatory() {
@@ -126,7 +126,7 @@ function adMandatory() {
       // Ensure that the audio for the ad is muted
       detectElement(".vjs-mandatory-advertisement__video").then(element => {
         element.muted = true;
-      })
+      });
 
       if (!vue.advertising) {
         console.log('no ad on this video.');
@@ -138,8 +138,8 @@ function adMandatory() {
 
       detectElement('#vjs-mandatory-advertisement__close').then((element) => {
         element.click();
-      })
-      console.log("Ad removed");
+        console.log("Ad removed");
+      });
     })
     .catch(err => {
       console.warn('mandatory ad vue is not detected.');
@@ -189,17 +189,26 @@ function adCorner() {
 }
 
 function styles() {
-  let styleEl = document.createElement('style');
-  document.head.appendChild(styleEl);
-  let styleSheet = styleEl.sheet;
-  [
-    '.adcontainer',
-    '.mtg-client_left',
-    '.mtg-client_right',
-    '.a-card-item',
-  ].forEach(selector => {
-    styleSheet.insertRule(`${selector}{display:none!important;}`);
-  });
+    let styleEl = document.createElement('style');
+    document.head.appendChild(styleEl);
+    let styleSheet = styleEl.sheet;
+    [
+        '.adcontainer',
+        '.mtg-client_left',
+        '.mtg-client_right',
+        '.a-card-item',
+    ].forEach(selector => {
+        styleSheet.insertRule(`${selector}{display:none!important;}`);
+    });
+}
+
+function removeAd(){
+    adCorner();
+    adPause();
+    adMandatory();
+    qrCode();
+    today();
+    styles();
 }
 
 function keyControls(vjs) {
@@ -277,15 +286,6 @@ function keyControls(vjs) {
   });
 }
 
-function removeAd() {
-  adCorner();
-  adPause();
-  adMandatory();
-  qrCode();
-  today();
-  styles();
-}
-
 (() => {
   removeAd();
 })();
@@ -300,9 +300,8 @@ function removeAd() {
     });
 })();
 
-
 window.onload = async (event) => {
-  // Fire skip removeAd again upon change in episode name
+  // Fire skip adMandatory again upon change in episode name
   let episode = document.getElementById("cPartNum");
   episode.addEventListener("DOMSubtreeModified", () => { removeAd(); });
 };

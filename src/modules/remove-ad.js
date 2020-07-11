@@ -1,9 +1,9 @@
-import qrcode from './modules/qrcode';
-import today from './modules/today';
-import adMandatory from './modules/ad-mandatory';
-import adPause from './modules/ad-pause';
-import adCorner from './modules/ad-corner';
-import styles from './modules/styles';
+import qrcode from './qrcode';
+import today from './today';
+import adMandatory from './ad-mandatory';
+import adPause from './ad-pause';
+import adCorner from './ad-corner';
+import styles from './styles';
 
 export default function removeAd(){
     adCorner();

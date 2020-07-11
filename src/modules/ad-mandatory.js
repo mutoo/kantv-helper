@@ -1,4 +1,4 @@
-import { getVueInstance } from '../utils';
+import { getVueInstance, detectElement } from '../utils';
 
 export default function adMandatory() {
   return getVueInstance('#vjs-mandatory-advertisement')
@@ -18,8 +18,8 @@ export default function adMandatory() {
 
       detectElement('#vjs-mandatory-advertisement__close').then((element) => {
         element.click();
+        console.log("Ad removed");
       })
-      console.log("Ad removed");
     })
     .catch(err => {
       console.warn('mandatory ad vue is not detected.');
