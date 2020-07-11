@@ -17,7 +17,7 @@ import keyControls from './modules/key-controls';
 })();
 
 window.onload = async (event) => {
-  // Fire skip adMandatory again upon change in episode name
+  // Fire removeAd again upon change in episode name
   let episode = document.getElementById("cPartNum");
   episode.addEventListener("DOMSubtreeModified", () => { removeAd(); });
 };
