@@ -120,10 +120,6 @@ function today() {
     });
 }
 
-function muteElement(elem, bool) {
-  elem.muted = bool;
-}
-
 function adMandatory() {
   return getVueInstance('#vjs-mandatory-advertisement')
     .then(vue => {
@@ -306,7 +302,7 @@ function removeAd() {
 
 
 window.onload = async (event) => {
-  // Fire skip adMandatory again upon change in episode name
+  // Fire skip removeAd again upon change in episode name
   let episode = document.getElementById("cPartNum");
   episode.addEventListener("DOMSubtreeModified", () => { removeAd(); });
 };
