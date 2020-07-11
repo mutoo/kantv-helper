@@ -134,14 +134,12 @@ function adMandatory() {
       // force finish the first ad
       vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
 
-      // remove all mandatory ads
-      let adIndexes = Object.keys(vue.advertising.mandatory);
-      for (let i = 0; i < adIndexes.length; i++) {
-        let mandatory = vue.advertising.mandatory[adIndexes[i]];
-        if (mandatory) {
-          mandatory.length = 0;
-        }
-      }
+      vue.advertising.closeMandatory = true;
+
+      detectElement('#vjs-mandatory-advertisement__close').then((element)=>{
+        element.click();
+      })
+      console.log("Ad removed");
     })
     .catch(err => {
       console.warn('mandatory ad vue is not detected.');
@@ -297,3 +295,10 @@ function keyControls(vjs) {
       console.warn(err);
     });
 })();
+
+
+window.onload = async (event) => {
+    // Fire skip adMandatory again upon change in episode name
+    let episode = document.getElementById("cPartNum");
+    episode.addEventListener("DOMSubtreeModified", ()=>{adMandatory();});
+};
