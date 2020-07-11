@@ -277,13 +277,17 @@ function keyControls(vjs) {
   });
 }
 
-(() => {
+function removeAd(){
   adCorner();
   adPause();
   adMandatory();
   qrCode();
   today();
   styles();
+}
+
+(() => {
+  removeAd();
 })();
 
 (() => {
@@ -300,5 +304,5 @@ function keyControls(vjs) {
 window.onload = async (event) => {
     // Fire skip adMandatory again upon change in episode name
     let episode = document.getElementById("cPartNum");
-    episode.addEventListener("DOMSubtreeModified", ()=>{adMandatory();});
+    episode.addEventListener("DOMSubtreeModified", ()=>{removeAd();});
 };
