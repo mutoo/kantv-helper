@@ -7,21 +7,10 @@ import adCorner from './modules/ad-corner';
 import styles from './modules/styles';
 import keyControls from './modules/key-controls';
 
-(() => {
-  adCorner();
-  adPause();
-  adMandatory();
-  qrcode();
-  today();
-  styles();
-})();
-
-(() => {
-  detectElement('.video-js')
-    .then(vjs => {
-      keyControls(vjs.player);
-    })
-    .catch(err => {
-      console.warn(err);
-    });
-})();
+adCorner();
+adPause();
+adMandatory();
+qrcode();
+today();
+styles();
+keyControls();

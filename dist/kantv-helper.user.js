@@ -5,7 +5,7 @@
 // @updateURL    https://mutoo.github.com/kantv-helper/dist/kantv-helper.meta.js
 // @downloadURL  https://mutoo.github.com/kantv-helper/dist/kantv-helper.user.js
 // @supportURL   https://github.com/mutoo/kantv-helper/issues
-// @version      1.0.14
+// @version      1.0.15
 // @description  Customized scripts for kantv, skipping qrCode, removing ads, etc.
 // @author       Mutoo <gmutoo@gmail.com>
 // @match        http*://www.imkan.tv/tvdrama/*
@@ -121,31 +121,36 @@ function today() {
 }
 
 function adMandatory() {
-  return getVueInstance('#vjs-mandatory-advertisement')
-    .then(vue => {
-      if (!vue.advertising) {
-        console.log('no ad on this video.');
-        return;
-      }
+    return getVueInstance('#vjs-mandatory-advertisement')
+        .then(vue => {
+            if (!vue.advertising) {
+                console.log('no ad on this video.');
+                return;
+            }
 
-      // allow close mandatory ad
-      vue.advertising.closeMandatory = true;
+            // try disable mandatory ad
+            vue.advertising.disableMandatory = true;
 
-      // force finish the first ad
-      vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
+            // in case that may fail, we also allow user to skip the ad manually
+            vue.advertising.closeMandatory = true;
 
-      // remove all mandatory ads
-      let adIndexes = Object.keys(vue.advertising.mandatory);
-      for (let i = 0; i < adIndexes.length; i++) {
-        let mandatory = vue.advertising.mandatory[adIndexes[i]];
-        if (mandatory) {
-          mandatory.length = 0;
-        }
-      }
-    })
-    .catch(err => {
-      console.warn('mandatory ad vue is not detected.');
-    });
+            // move the index to inf and force finish the first ad
+            // so it won't play next ad
+            vue.$set(vue, 'currentAdvertisingIndex', vue.currentAdvertisingList.length - 1);
+            vue.$set(vue, 'currentAdvertisingTime', parseFloat('Infinity'));
+
+            // remove all mandatory ads
+            let adIndexes = Object.keys(vue.advertising.mandatory);
+            for (let i = 0; i < adIndexes.length; i++) {
+                let mandatory = vue.advertising.mandatory[adIndexes[i]];
+                if (mandatory) {
+                    mandatory.length = 0;
+                }
+            }
+        })
+        .catch(err => {
+            console.warn('mandatory ad vue is not detected.');
+        });
 }
 
 function adPause() {
@@ -205,95 +210,93 @@ function styles() {
 }
 
 function keyControls(vjs) {
-  if (!vjs) {
-    console.warn('could not detect vjs');
-    return;
-  }
-
-  window.addEventListener('keyup', e => {
-    if (e.target instanceof HTMLInputElement) {
-      // ignore the key events in the input element
-      return;
-    }
-    let rate = vjs.playbackRate();
-    let currentTime = vjs.currentTime();
-    let duration = vjs.duration();
-    let skip = 10;
-    switch (e.key) {
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-        vjs.playbackRate(parseInt(e.key));
-        break;
-      case '-':
-        vjs.playbackRate(Math.max(0, rate - 0.25));
-        break;
-      case '=':
-        vjs.playbackRate(Math.min(rate + 0.25, 10));
-        break;
-      case 'f':
-        if (vjs.isFullscreen()) {
-          vjs.exitFullscreen();
-        } else {
-          if (document.pictureInPictureElement) {
-            document.exitPictureInPicture();
-          }
-          vjs.requestFullscreen();
-        }
-        break;
-      case 'p':
-        if ('pictureInPictureEnabled' in document) {
-          let video = vjs.$('video');
-          if (document.pictureInPictureElement) {
-            document.exitPictureInPicture();
-          } else {
-            if (vjs.isFullscreen()) {
-              vjs.exitFullscreen();
-            }
-            video.requestPictureInPicture();
-          }
-        } else {
-          console.warn('Picture-in-picture is not supported in this browser.');
-        }
-        break;
-      case 'n':
-        getVueInstance('#vjs-next-part').then(vue => {
-          vue.$emit('on-click'); // trigger next
+    detectElement('.video-js')
+        .then(vjs => {
+            setup(vjs.player);
+        })
+        .catch(err => {
+            console.warn(err);
         });
-        break;
-      case ',':
-        vjs.currentTime(Math.max(0, currentTime - skip));
-        break;
-      case '.':
-        vjs.currentTime(Math.min(currentTime + skip, duration));
-        break;
-      case '<':
-        vjs.currentTime(Math.max(0, currentTime - skip * 2));
-        break;
-      case '>':
-        vjs.currentTime(Math.min(currentTime + skip * 2, duration));
-        break;
+}
+function setup(vjs) {
+    if (!vjs) {
+        console.warn('could not detect vjs');
+        return;
     }
-  });
+
+    window.addEventListener('keyup', e => {
+        if (e.target instanceof HTMLInputElement) {
+            // ignore the key events in the input element
+            return;
+        }
+        let rate = vjs.playbackRate();
+        let currentTime = vjs.currentTime();
+        let duration = vjs.duration();
+        let skip = 10;
+        switch (e.key) {
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+                vjs.playbackRate(parseInt(e.key));
+                break;
+            case '-':
+                vjs.playbackRate(Math.max(0, rate - 0.25));
+                break;
+            case '=':
+                vjs.playbackRate(Math.min(rate + 0.25, 10));
+                break;
+            case 'f':
+                if (vjs.isFullscreen()) {
+                    vjs.exitFullscreen();
+                } else {
+                    if (document.pictureInPictureElement) {
+                        document.exitPictureInPicture();
+                    }
+                    vjs.requestFullscreen();
+                }
+                break;
+            case 'p':
+                if ('pictureInPictureEnabled' in document) {
+                    let video = vjs.$('video');
+                    if (document.pictureInPictureElement) {
+                        document.exitPictureInPicture();
+                    } else {
+                        if (vjs.isFullscreen()) {
+                            vjs.exitFullscreen();
+                        }
+                        video.requestPictureInPicture();
+                    }
+                } else {
+                    console.warn('Picture-in-picture is not supported in this browser.');
+                }
+                break;
+            case 'n':
+                getVueInstance('#vjs-next-part').then(vue => {
+                    vue.$emit('on-click'); // trigger next
+                });
+                break;
+            case ',':
+                vjs.currentTime(Math.max(0, currentTime - skip));
+                break;
+            case '.':
+                vjs.currentTime(Math.min(currentTime + skip, duration));
+                break;
+            case '<':
+                vjs.currentTime(Math.max(0, currentTime - skip * 2));
+                break;
+            case '>':
+                vjs.currentTime(Math.min(currentTime + skip * 2, duration));
+                break;
+        }
+    });
 }
 
-(() => {
-  adCorner();
-  adPause();
-  adMandatory();
-  qrCode();
-  today();
-  styles();
-})();
-
-(() => {
-  detectElement('.video-js')
-    .then(vjs => {
-      keyControls(vjs.player);
-    })
-    .catch(err => {
-      console.warn(err);
-    });
-})();
+adCorner();
+adPause();
+adMandatory();
+qrCode();
+today();
+styles();
+keyControls();
