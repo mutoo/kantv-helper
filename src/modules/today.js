@@ -21,6 +21,6 @@ export default function today() {
             clearTimeout(vue.teseTimer);
         })
         .catch(err => {
-            console.warn('qr vue is not detected.');
+            console.warn('jinriaozhou vue is not detected.');
         });
 }

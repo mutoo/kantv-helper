@@ -1,280 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Kantv Helper</title>
-        <!-- Google Tag Manager -->
+<head>
+    <meta charset="utf-8"/>
+    <title>Kantv Helper</title>
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js',
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MZWF9KM');
+    </script>
+    <!-- End Google Tag Manager -->
+    <script
+        async
+        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+    ></script>
+    <script>
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(function() {
+            googletag
+                .defineSlot(
+                    '/21918258587/kantv_helper_banner',
+                    [728, 90],
+                    'div-gpt-ad-1581781627926-0',
+                )
+                .addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-size: 1.6rem;
+            line-height: 1.5;
+        }
+
+        .kt-container {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        #text {
+            display: block;
+            width: 100%;
+        }
+
+        .kt-github {
+            position: fixed;
+            right: 0;
+            top: 0;
+        }
+
+        code {
+            background-color: #eee;
+            border-radius: 3px;
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="kt-container">
+    <h1>Kantv Helper</h1>
+    <p>
+        Customized scripts for kantv, skipping qrCode, removing ads,
+        etc.
+    </p>
+    <!-- /21918258587/kantv_helper_banner -->
+    <div
+        id="div-gpt-ad-1581781627926-0"
+        style="width: 728px; height: 90px;"
+    >
         <script>
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js',
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-MZWF9KM');
-        </script>
-        <!-- End Google Tag Manager -->
-        <script
-            async
-            src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
-        ></script>
-        <script>
-            window.googletag = window.googletag || { cmd: [] };
             googletag.cmd.push(function() {
-                googletag
-                    .defineSlot(
-                        '/21918258587/kantv_helper_banner',
-                        [728, 90],
-                        'div-gpt-ad-1581781627926-0',
-                    )
-                    .addService(googletag.pubads());
-                googletag.pubads().enableSingleRequest();
-                googletag.enableServices();
+                googletag.display('div-gpt-ad-1581781627926-0');
             });
         </script>
-        <style>
-            * {
-                box-sizing: border-box;
-            }
+    </div>
+    <h2>0x0 Install</h2>
+    <h3>Userscripts</h3>
+    <p>
+        If you have the
+        <a
+            href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/"
+            target="_blank"
+        >greasemonkey</a
+        >
+        or
+        <a
+            href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN"
+            target="_blank"
+        >tampermonkey</a
+        >
+        extension for your browser,
+        <a href="dist/kantv-helper.user.js" target="_blank"
+        >click here to install</a
+        >
+        the scripts.
+    </p>
+    <h3>Bookmark</h3>
+    <p>You could also use the script from your bookmark by:</p>
+    <p>
+        Drag the following link to your bookmarks:
+        <a id="link" href="" title="Kantv Helper">Kantv-helper</a>
+    </p>
+    <p>
+        Or copy following code then create a new bookmark:
+        <textarea id="text"></textarea>
+    </p>
+    <p>
+        Once installed, you could simply inject the helper script via
+        the bookmark to active it every time you need it.
+    </p>
+    <p>
+        This allow you to use this script on the browsers that doesn't
+        support extensions, such as Edge on xbox.
+    </p>
+    <p>
+        I known it's hard to do so on Xbox. My solution is that using
+        Xbox mobile app as text input to copy and paste the script into
+        a bookmark.
+    </p>
+    <h3>iOS Shortcuts</h3>
+    <p>If you are using iPhone or iPad and watch movies on safari browser. You may install this Shortcuts: <a
+        href="https://www.icloud.com/shortcuts/3d441812fad846e9a296c8bc7cfacd2d" target="_blank">Kantv Helper</a>. And
+        use it from "Share" sheet, when you are blocking by ads or QRCodes.</p>
+    <p>Thanks to Alan for providing this idea.</p>
+    <h2>0x1 Change Logs</h2>
+    <dl>
+        <dt>1.0.15 - Sep 1, 2020</dt>
+        <dd>skipping multiple op ads.</dd>
+        <dt>1.0.14 - Apr 28, 2020</dt>
+        <dd>skipping jinriaozhou ad.</dd>
+        <dt>1.0.13 - Mar 5, 2020</dt>
+        <dd>add support for huaren.tv</dd>
+        <dt>1.0.11 - Feb 22, 2020</dt>
+        <dd>removing corner ad.</dd>
+        <dt>1.0.8 - Dec 19, 2019</dt>
+        <dd>
+            add key control:
+            <ul>
+                <li><code>p</code>: toggle picture-in-picture mode.</li>
+            </ul>
+        </dd>
+        <dt>1.0.7 - Dec 10, 2019</dt>
+        <dd>
+            ignore key controls when focus in search field. remove top
+            ad.
+        </dd>
+        <dt>1.0.5 - Aug 2, 2019</dt>
+        <dd>
+            add key control:
+            <ul>
+                <li><code>n</code>: play next video.</li>
+            </ul>
+        </dd>
+        <dt>1.0.4 - Jul 25, 2019</dt>
+        <dd>
+            fix skipping current ad; add key controls:
+            <ul>
+                <li><code>1-5</code>: to set playback rate.</li>
+                <li>
+                    <code>-/=</code>: to change playback rate by 0.25
+                    interval in range [0, 10].
+                </li>
+                <li>
+                    <code>,/.</code>: to skip 10 seconds (20 seconds
+                    with shift key).
+                </li>
+                <li><code>&lt;/&gt;</code>: to skip 20 seconds.</li>
+                <li><code>f</code>: toggle fullscreen.</li>
+            </ul>
+        </dd>
+        <dt>1.0.0 - Jul 4, 2019</dt>
+        <dd>skipping qrCode, removing ads!</dd>
+    </dl>
+    <h2>0x2 FAQ</h2>
+    <dl>
+        <dt>Does it support IE11?</dt>
+        <dd>No.</dd>
+        <dt>Do you accept donation?</dt>
+        <dd>Sure.</dd>
+    </dl>
+    <style>
+        .bmc-button img {
+            width: 27px !important;
+            margin-bottom: 1px !important;
+            box-shadow: none !important;
+            border: none !important;
+            vertical-align: middle !important;
+        }
 
-            html {
-                font-size: 62.5%;
-            }
+        .bmc-button {
+            line-height: 36px !important;
+            height: 37px !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            color: #ffffff !important;
+            background-color: #000000 !important;
+            border-radius: 3px !important;
+            border: 1px solid transparent !important;
+            padding: 1px 9px !important;
+            font-size: 22px !important;
+            letter-spacing: 0.6px !important;
+            box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;
+            -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+            margin: 0 auto !important;
+            font-family: 'Cookie', cursive !important;
+            -webkit-box-sizing: border-box !important;
+            box-sizing: border-box !important;
+            -o-transition: 0.3s all linear !important;
+            -webkit-transition: 0.3s all linear !important;
+            -moz-transition: 0.3s all linear !important;
+            -ms-transition: 0.3s all linear !important;
+            transition: 0.3s all linear !important;
+        }
 
-            body {
-                font-size: 1.6rem;
-                line-height: 1.5;
-            }
+        .bmc-button:hover,
+        .bmc-button:active,
+        .bmc-button:focus {
+            -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+            text-decoration: none !important;
+            box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+            opacity: 0.85 !important;
+            color: #ffffff !important;
+        }</style
+    >
+    <link
+        href="https://fonts.googleapis.com/css?family=Cookie"
+        rel="stylesheet"
+    />
+    <a
+        class="bmc-button"
+        target="_blank"
+        href="https://www.buymeacoffee.com/mutoo"
+    ><img
+        src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg"
+        alt="Buy me a cocacola"
+    /><span style="margin-left:5px">Buy me a cocacola</span></a
+    >
+</div>
+<a class="kt-github" href="https://github.com/mutoo/kantv-helper">
+    <img
+        width="149"
+        height="149"
+        src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+        class=" attachment-fullsize-full"
+        alt="Fork me on GitHub"
+        data-recalc-dims="1"
+    /></a>
 
-            .kt-container {
-                margin: 0 auto;
-                max-width: 600px;
-            }
-
-            #text {
-                display: block;
-                width: 100%;
-            }
-
-            .kt-github {
-                position: fixed;
-                right: 0;
-                top: 0;
-            }
-
-            code {
-                background-color: #eee;
-                border-radius: 3px;
-                padding: 2px 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="kt-container">
-            <h1>Kantv Helper</h1>
-            <p>
-                Customized scripts for kantv, skipping qrCode, removing ads,
-                etc.
-            </p>
-            <!-- /21918258587/kantv_helper_banner -->
-            <div
-                id="div-gpt-ad-1581781627926-0"
-                style="width: 728px; height: 90px;"
-            >
-                <script>
-                    googletag.cmd.push(function() {
-                        googletag.display('div-gpt-ad-1581781627926-0');
-                    });
-                </script>
-            </div>
-            <h2>0x0 Install</h2>
-            <h3>Userscripts</h3>
-            <p>
-                If you have the
-                <a
-                    href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/"
-                    target="_blank"
-                    >greasemonkey</a
-                >
-                or
-                <a
-                    href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN"
-                    target="_blank"
-                    >tampermonkey</a
-                >
-                extension for your browser,
-                <a href="dist/kantv-helper.user.js" target="_blank"
-                    >click here to install</a
-                >
-                the scripts.
-            </p>
-            <h3>Bookmark</h3>
-            <p>You could also use the script from your bookmark by:</p>
-            <p>
-                Drag the following link to your bookmarks:
-                <a id="link" href="" title="Kantv Helper">Kantv-helper</a>
-            </p>
-            <p>
-                Or copy following code then create a new bookmark:
-                <textarea id="text"></textarea>
-            </p>
-            <p>
-                Once installed, you could simply inject the helper script via
-                the bookmark to active it every time you need it.
-            </p>
-            <p>
-                This allow you to use this script on the browsers that doesn't
-                support extensions, such as Edge on xbox.
-            </p>
-            <p>
-                I known it's hard to do so on Xbox. My solution is that using
-                Xbox mobile app as text input to copy and paste the script into
-                a bookmark.
-            </p>
-            <h2>0x1 Change Logs</h2>
-            <dl>
-                <dt>1.0.15 - Sep 1, 2020</dt>
-                <dd>skipping multiple op ads.</dd>
-                <dt>1.0.14 - Apr 28, 2020</dt>
-                <dd>skipping jinriaozhou ad.</dd>
-                <dt>1.0.13 - Mar 5, 2020</dt>
-                <dd>add support for huaren.tv</dd>
-                <dt>1.0.11 - Feb 22, 2020</dt>
-                <dd>removing corner ad.</dd>
-                <dt>1.0.8 - Dec 19, 2019</dt>
-                <dd>
-                    add key control:
-                    <ul>
-                        <li><code>p</code>: toggle picture-in-picture mode.</li>
-                    </ul>
-                </dd>
-                <dt>1.0.7 - Dec 10, 2019</dt>
-                <dd>
-                    ignore key controls when focus in search field. remove top
-                    ad.
-                </dd>
-                <dt>1.0.5 - Aug 2, 2019</dt>
-                <dd>
-                    add key control:
-                    <ul>
-                        <li><code>n</code>: play next video.</li>
-                    </ul>
-                </dd>
-                <dt>1.0.4 - Jul 25, 2019</dt>
-                <dd>
-                    fix skipping current ad; add key controls:
-                    <ul>
-                        <li><code>1-5</code>: to set playback rate.</li>
-                        <li>
-                            <code>-/=</code>: to change playback rate by 0.25
-                            interval in range [0, 10].
-                        </li>
-                        <li>
-                            <code>,/.</code>: to skip 10 seconds (20 seconds
-                            with shift key).
-                        </li>
-                        <li><code>&lt;/&gt;</code>: to skip 20 seconds.</li>
-                        <li><code>f</code>: toggle fullscreen.</li>
-                    </ul>
-                </dd>
-                <dt>1.0.0 - Jul 4, 2019</dt>
-                <dd>skipping qrCode, removing ads!</dd>
-            </dl>
-            <h2>0x2 FAQ</h2>
-            <dl>
-                <dt>Does it support IE11?</dt>
-                <dd>No.</dd>
-                <dt>Do you accept donation?</dt>
-                <dd>Sure.</dd>
-            </dl>
-            <style>
-                .bmc-button img {
-                    width: 27px !important;
-                    margin-bottom: 1px !important;
-                    box-shadow: none !important;
-                    border: none !important;
-                    vertical-align: middle !important;
-                }
-                .bmc-button {
-                    line-height: 36px !important;
-                    height: 37px !important;
-                    text-decoration: none !important;
-                    display: inline-flex !important;
-                    color: #ffffff !important;
-                    background-color: #000000 !important;
-                    border-radius: 3px !important;
-                    border: 1px solid transparent !important;
-                    padding: 1px 9px !important;
-                    font-size: 22px !important;
-                    letter-spacing: 0.6px !important;
-                    box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;
-                    -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
-                    margin: 0 auto !important;
-                    font-family: 'Cookie', cursive !important;
-                    -webkit-box-sizing: border-box !important;
-                    box-sizing: border-box !important;
-                    -o-transition: 0.3s all linear !important;
-                    -webkit-transition: 0.3s all linear !important;
-                    -moz-transition: 0.3s all linear !important;
-                    -ms-transition: 0.3s all linear !important;
-                    transition: 0.3s all linear !important;
-                }
-                .bmc-button:hover,
-                .bmc-button:active,
-                .bmc-button:focus {
-                    -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
-                    text-decoration: none !important;
-                    box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
-                    opacity: 0.85 !important;
-                    color: #ffffff !important;
-                }</style
-            ><link
-                href="https://fonts.googleapis.com/css?family=Cookie"
-                rel="stylesheet"
-            /><a
-                class="bmc-button"
-                target="_blank"
-                href="https://www.buymeacoffee.com/mutoo"
-                ><img
-                    src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg"
-                    alt="Buy me a cocacola"
-                /><span style="margin-left:5px">Buy me a cocacola</span></a
-            >
-        </div>
-        <a class="kt-github" href="https://github.com/mutoo/kantv-helper">
-            <img
-                width="149"
-                height="149"
-                src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
-                class=" attachment-fullsize-full"
-                alt="Fork me on GitHub"
-                data-recalc-dims="1"
-        /></a>
-
-        <script>
-            window.addEventListener('load', function() {
-                var target = new URL(
-                    'dist/kantv-helper.user.js',
-                    window.location.href,
-                );
-                var script =
-                    'javascript:(function(){var s=document.createElement("script");s.src="' +
-                    target +
-                    '";document.getElementsByTagName("head")[0].appendChild(s)})();';
-                var link = document.getElementById('link');
-                link.href = script;
-                var text = document.getElementById('text');
-                text.innerText = script;
-                text.addEventListener('focus', function() {
-                    text.select();
-                });
-            });
-        </script>
-    </body>
+<script>
+    window.addEventListener('load', function() {
+        var target = new URL(
+            'dist/kantv-helper.user.js',
+            window.location.href,
+        );
+        var script =
+            'javascript:(function(){var s=document.createElement("script");s.src="' +
+            target +
+            '";document.getElementsByTagName("head")[0].appendChild(s)})();';
+        var link = document.getElementById('link');
+        link.href = script;
+        var text = document.getElementById('text');
+        text.innerText = script;
+        text.addEventListener('focus', function() {
+            text.select();
+        });
+    });
+</script>
+</body>
 </html>
